@@ -152,6 +152,6 @@ cython_debug/
 #.idea/
 
 # Models
-.prototxt
-.pbtxt
-.caffemodel
+*.prototxt
+*.pbtxt
+*.caffemodel
