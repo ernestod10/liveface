@@ -44,11 +44,15 @@ while True:
         texture_variance = np.var(face_roi)
 
         # Establecer un umbral para diferenciar entre un rostro real y una foto
-        threshold = 2000
+        threshold = 2800
 
 
         # Si la varianza de textura está por encima del umbral, considerarlo un rostro real
         if texture_variance > threshold:
+            # Calcular la confianza de que sea un rostro real
+            real_face_confidence = (texture_variance - threshold) / (255 - threshold)
+            real_face_confidence_percentage = 100 + round(real_face_confidence * 100, 2)
+            print(f"Confianza de que sea un rostro real: {real_face_confidence_percentage}%")
             # Realizar la detección de género
             face_roi_rgb = cv2.cvtColor(face_roi, cv2.COLOR_GRAY2RGB)  # Convertir la imagen en escala de grises a RGB
             blob = cv2.dnn.blobFromImage(face_roi_rgb, 1, (227, 227), (78.4263377603, 87.7689143744, 114.895847746), swapRB=False)
